@@ -1,0 +1,47 @@
+# hw definition file for processing by chibios_hwdef.py
+# for the STM32H743 LQFP100 hardware bootloader
+
+# MCU class and specific type
+MCU STM32H7xx STM32H743xx
+
+# crystal frequency - 24MHz晶振
+OSCILLATOR_HZ 25000000
+
+# board ID for firmware load
+APJ_BOARD_ID 200
+
+# bootloader is installed at zero offset
+FLASH_RESERVE_START_KB 0
+
+# the location where the bootloader will put the firmware
+FLASH_BOOTLOADER_LOAD_KB 384
+
+# flash size - 2MB
+FLASH_SIZE_KB 2048
+
+# 优化设置 - 引导加载程序优化为大小
+env OPTIMIZE -Os
+
+# 串口顺序定义 - 支持串口烧录
+SERIAL_ORDER OTG1
+
+# default to all pins low to avoid ESD issues
+DEFAULTGPIO OUTPUT LOW PULLDOWN
+
+# USB接口
+PA11 OTG_FS_DM OTG1
+PA12 OTG_FS_DP OTG1
+
+# SWD调试接口
+PA13 JTMS-SWDIO SWD
+PA14 JTCK-SWCLK SWD
+
+# CS引脚用于引导加载程序
+PA4 W25Q128_CS CS
+PC0 BMI088_A_CS CS
+PC1 BMI088_G_CS CS
+
+# LED指示灯配置
+# 活动状态LED
+PE2 LED_BOOTLOADER OUTPUT LOW
+define HAL_LED_ON 0
